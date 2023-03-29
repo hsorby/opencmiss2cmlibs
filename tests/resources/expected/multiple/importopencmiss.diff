@@ -1,5 +1,21 @@
 --- {input_dir}/importopencmiss.py    (original)
 +++ {input_dir}/importopencmiss.py    (refactored)
-@@ -1 +1 @@
--import opencmiss
-+import cmlibs bleeb bleep
+@@ -1,9 +1,9 @@
+-from opencmiss import utils
+-from opencmiss import utils as u
+-from opencmiss.utils import zinc
+-from opencmiss.utils.zinc.general import ChangeManager
+-from opencmiss.zinc.element import Mesh
+-from opencmiss.zinc.field import Field, FieldFiniteElement, FieldGroup
+-from opencmiss.zinc.fieldmodule import Fieldmodule
+-from opencmiss.zinc.node import Nodeset
+-from opencmiss.zinc.result import RESULT_OK
++from cmlibs import utils
++from cmlibs import utils as u
++from cmlibs.utils import zinc
++from cmlibs.utils.zinc.general import ChangeManager
++from cmlibs.zinc.element import Mesh
++from cmlibs.zinc.field import Field, FieldFiniteElement, FieldGroup
++from cmlibs.zinc.fieldmodule import Fieldmodule
++from cmlibs.zinc.node import Nodeset
++from cmlibs.zinc.result import RESULT_OK

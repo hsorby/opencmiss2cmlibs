@@ -43,8 +43,6 @@ class ImportTestCase(unittest.TestCase):
             content = f.read()
 
         capture = capture_out.getvalue().replace("\t", "    ")
-        print(capture)
-        print(content.format(input_dir=multiple_dir))
         self.assertEqual(content.format(input_dir=multiple_dir), capture)
 
     def test_from_write_import(self):
