@@ -6,7 +6,7 @@ from .. import fixer_base
 from ..fixer_util import Name, attr_chain
 
 MAPPING = {
-    'opencmiss': 'cmlibs',
+    'opencmiss': 'cmlibs'
 }
 
 
@@ -14,7 +14,9 @@ def alternates(members):
     return "(" + "|".join(map(repr, members)) + ")"
 
 
-def build_pattern(mapping=MAPPING):
+def build_pattern(mapping=None):
+    if mapping is None:
+        mapping = MAPPING
     mod_list = ' | '.join(["module_name='%s'" % key for key in mapping])
     bare_names = alternates(mapping.keys())
 
@@ -29,6 +31,9 @@ def build_pattern(mapping=MAPPING):
                multiple_imports=dotted_as_names<
                  any* dotted_as_name< (%s) 'as' any > any* >) >
           """ % (mod_list, mod_list)
+    yield """import_from< 'from' (dotted_name< (%s) ('.' any)* > ) 'import' ( any | import_as_name< any 'as' any > |
+                import_as_names< any* > ) >
+          """ % mod_list
 
     # Find usages of module members in code e.g. thread.foo(bar)
     yield "power< bare_with_attr=(%s) trailer<'.' any > any* >" % bare_names

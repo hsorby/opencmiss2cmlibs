@@ -217,5 +217,10 @@ def main(fixer_pkg, args=None):
     return int(bool(rt.errors))
 
 
-if __name__ == "__main__":
+def entry_point():
     main("libocm2cml.fixes", sys.argv[1:])
+
+
+if __name__ == "__main__":
+    entry_point()
+

@@ -30,6 +30,23 @@ class ImportTestCase(unittest.TestCase):
         capture = capture_out.getvalue().replace("\t", "    ")
         self.assertEqual(content.format(input_dir=basic_dir), capture)
 
+    def test_multiple_import(self):
+        multiple_dir = os.path.join(inputs_dir, "multiple")
+        capture_err = io.StringIO()
+        capture_out = io.StringIO()
+        with contextlib.redirect_stderr(capture_err), contextlib.redirect_stdout(capture_out):
+            main("libocm2cml.fixes", ["-v", multiple_dir])
+
+        self.assertTrue(os.path.isfile(os.path.join(multiple_dir, "importopencmiss.py")))
+
+        with open(os.path.join(expected_dir, "multiple", "importopencmiss.diff")) as f:
+            content = f.read()
+
+        capture = capture_out.getvalue().replace("\t", "    ")
+        print(capture)
+        print(content.format(input_dir=multiple_dir))
+        self.assertEqual(content.format(input_dir=multiple_dir), capture)
+
     def test_from_write_import(self):
         from_write_dir = os.path.join(inputs_dir, "from_write")
         capture_err = io.StringIO()

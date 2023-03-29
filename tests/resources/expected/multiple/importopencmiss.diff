@@ -1,0 +1,5 @@
+--- {input_dir}/importopencmiss.py    (original)
++++ {input_dir}/importopencmiss.py    (refactored)
+@@ -1 +1 @@
+-import opencmiss
++import cmlibs bleeb bleep
