@@ -15,7 +15,7 @@ inputs_dir = os.path.join(resources_dir, "inputs")
 
 class ImportTestCase(unittest.TestCase):
 
-    def test_basic_import(self):
+    def test_basic(self):
         basic_dir = os.path.join(inputs_dir, "basic")
         capture_err = io.StringIO()
         capture_out = io.StringIO()
@@ -30,7 +30,7 @@ class ImportTestCase(unittest.TestCase):
         capture = capture_out.getvalue().replace("\t", "    ")
         self.assertEqual(content.format(input_dir=basic_dir), capture)
 
-    def test_multiple_import(self):
+    def test_multiple(self):
         multiple_dir = os.path.join(inputs_dir, "multiple")
         capture_err = io.StringIO()
         capture_out = io.StringIO()
@@ -45,7 +45,7 @@ class ImportTestCase(unittest.TestCase):
         capture = capture_out.getvalue().replace("\t", "    ")
         self.assertEqual(content.format(input_dir=multiple_dir), capture)
 
-    def test_from_write_import(self):
+    def test_from_write(self):
         from_write_dir = os.path.join(inputs_dir, "from_write")
         capture_err = io.StringIO()
         capture_out = io.StringIO()
