@@ -68,5 +68,25 @@ class ImportTestCase(unittest.TestCase):
         shutil.copyfile(os.path.join(backups_dir, "from_write", "importopencmiss.py"), os.path.join(inputs_dir, "from_write", "importopencmiss.py"))
 
 
+class CombinedImportTestCase(unittest.TestCase):
+
+    def test_combined(self):
+        self.maxDiff = None
+
+        input_dir = os.path.join(inputs_dir, "with_cmlibs_zincwidgets")
+        capture_err = io.StringIO()
+        capture_out = io.StringIO()
+        with contextlib.redirect_stderr(capture_err), contextlib.redirect_stdout(capture_out):
+            main("libocm2cml.fixes", [input_dir])
+
+        self.assertTrue(os.path.isfile(os.path.join(input_dir, "importopencmiss.py")))
+
+        with open(os.path.join(expected_dir, "with_cmlibs_zincwidgets", "importopencmiss.diff")) as f:
+            content = f.read()
+
+        capture = capture_out.getvalue().replace("\t", "    ")
+        self.assertEqual(content.format(input_dir=input_dir), capture)
+
+
 if __name__ == "__main__":
     unittest.main()

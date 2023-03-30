@@ -6,7 +6,7 @@ from .. import fixer_base
 from ..fixer_util import Name, attr_chain
 
 MAPPING = {
-    'opencmiss': 'cmlibs'
+    'opencmiss': 'cmlibs',
 }
 
 
@@ -49,6 +49,10 @@ class FixImports(fixer_base.BaseFix):
     # renames into relative imports.
     run_order = 6
 
+    def __init__(self, options, log):
+        super().__init__(options, log)
+        self.replace = {}
+
     def build_pattern(self):
         return "|".join(build_pattern(self.mapping))
 
@@ -68,19 +72,53 @@ class FixImports(fixer_base.BaseFix):
             if "bare_with_attr" not in results and \
                     any(match(obj) for obj in attr_chain(node, "parent")):
                 return False
+
             return results
         return False
 
     def start_tree(self, tree, filename):
         super(FixImports, self).start_tree(tree, filename)
-        self.replace = {}
 
     def transform(self, node, results):
         import_mod = results.get("module_name")
         if import_mod:
             mod_name = import_mod.value
             new_name = self.mapping[mod_name]
+            # print('====== transform ======')
+            # print(results)
+            nn = results.get("node")
+            # print(dir(nn))
+            # print(nn.children)
+            # print(results.get("node"))
+            # print('import mod:', import_mod)
+            # print(results.keys())
+            if mod_name == "opencmiss":
+                # print(node)
+                result_node = results.get("node")
+                for child_node in result_node.children:
+                    for grand_child_node in child_node.children:
+                        if grand_child_node.value == "zincwidgets":
+                            grand_child_node.replace(Name("widgets", prefix=grand_child_node.prefix))
+
             import_mod.replace(Name(new_name, prefix=import_mod.prefix))
+            # print('import mod:', import_mod)
+            # import_mod.replace(Name(new_name, prefix=import_mod.prefix))
+            # print(new_name)
+            # print(dir(import_mod))
+            # print(import_mod.children)
+            # print(import_mod.prefix)
+            # print("name_import" in results)
+            # print("multiple_imports" in results)
+            # print("dotted_name" in nn.children)
+            # for tt in nn.children:
+                # print(tt)
+                # print(tt.type)
+                # for rr in tt.children:
+                    # print(rr)
+                    # print(rr.type, rr.value)
+                    # if rr.value == 'zincwidgets':
+                    #     rr.replace(Name("widgets", prefix=None))
+            # print('fin')
             if "name_import" in results:
                 # If it's not a "from x import x, y" or "import x as y" import,
                 # marked its usage to be replaced.

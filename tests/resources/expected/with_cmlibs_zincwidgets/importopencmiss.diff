@@ -1,0 +1,13 @@
+--- {input_dir}/importopencmiss.py    (original)
++++ {input_dir}/importopencmiss.py    (refactored)
+@@ -1,5 +1,5 @@
+-from opencmiss import utils
+-from opencmiss import utils as u
+-from opencmiss.utils import zinc
+-from opencmiss.zinc.element import Mesh
+-from opencmiss.zincwidgets.handlers.interactionmanager import InteractionManager
++from cmlibs import utils
++from cmlibs import utils as u
++from cmlibs.utils import zinc
++from cmlibs.zinc.element import Mesh
++from cmlibs.widgets.handlers.interactionmanager import InteractionManager
