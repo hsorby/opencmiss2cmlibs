@@ -13,7 +13,7 @@ def refactor_file(filename):
             json_data = json.load(f)
 
         if OLD_KEY in json_data:
-            json_data[NEW_KEY] = json_data[OLD_KEY]
+            json_data[NEW_KEY] = ["0", "4", "0"]
             del json_data[OLD_KEY]
 
             with open(filename, "w") as f:
