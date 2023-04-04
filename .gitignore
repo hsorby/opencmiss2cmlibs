@@ -102,3 +102,8 @@ ENV/
 
 # pycharm related projects
 .idea/
+
+Grammar*.final.0.pickle
+PatternGrammar*.final.0.pickle
+Grammar2.txt
+Grammar3.txt
