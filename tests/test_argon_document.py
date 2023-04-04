@@ -1,5 +1,3 @@
-import contextlib
-import io
 import os.path
 import shutil
 import unittest

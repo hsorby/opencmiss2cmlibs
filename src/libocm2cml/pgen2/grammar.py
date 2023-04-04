@@ -179,6 +179,7 @@ opmap_raw = """
 //= DOUBLESLASHEQUAL
 -> RARROW
 := COLONEQUAL
+... ELLIPSIS
 """
 
 opmap = {}
