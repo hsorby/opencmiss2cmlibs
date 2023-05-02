@@ -99,6 +99,12 @@ class FixImports(fixer_base.BaseFix):
                     for grand_child_node in child_node.children:
                         if grand_child_node.value == "zincwidgets":
                             grand_child_node.replace(Name("widgets", prefix=grand_child_node.prefix))
+                        if grand_child_node.value == "maths":
+                            if grand_child_node.prev_sibling.prev_sibling.value == "utils":
+                                grand_child_node.prev_sibling.remove()
+                                grand_child_node.prev_sibling.remove()
+                        if grand_child_node.value == "iron":
+                            return
 
             import_mod.replace(Name(new_name, prefix=import_mod.prefix))
             # print('import mod:', import_mod)
