@@ -103,6 +103,8 @@ class FixImports(fixer_base.BaseFix):
                             if grand_child_node.prev_sibling.prev_sibling.value == "utils":
                                 grand_child_node.prev_sibling.remove()
                                 grand_child_node.prev_sibling.remove()
+                        if grand_child_node.value == "iron":
+                            return
 
             import_mod.replace(Name(new_name, prefix=import_mod.prefix))
             # print('import mod:', import_mod)
