@@ -11,7 +11,7 @@ import optparse
 
 from libocm2cml import refactor
 
-__version__ = "0.1.5"
+__version__ = "0.1.6"
 
 
 def diff_texts(a, b, filename):
